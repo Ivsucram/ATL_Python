@@ -84,19 +84,9 @@ class DataManipulator:
     def normalize_image(self):
         raise TypeError('Not implemented')
 
-    def split_as_source_target_streams(self, number_fold_elements=0, method=None, sampling_ratio=0.5):
-        if number_fold_elements == 0:
-            self.number_fold_elements == self.data.shape[0]
-        else:
-            self.number_fold_elements = number_fold_elements
-
-        if method == None or method == 'none' or method == 'None':
-            self.__split_as_source_target_streams_none(self.number_fold_elements, sampling_ratio)
-        elif method == 'dallas_1' or method == 'dallas1':
-            self.__split_as_source_target_streams_dallas_1(self.number_fold_elements, sampling_ratio)
-        elif method == 'dallas_2' or method == 'dallas2':
-            self.__split_as_source_target_streams_dallas_2(self.number_fold_elements, sampling_ratio)
-
+    def split_as_source_target_streams(self, number_fold_elements=0, sampling_ratio=0.5):
+        self.number_fold_elements = number_fold_elements if number_fold_elements is not 0 else self.data.shape[0]
+        self.__split_as_source_target_streams_dallas_2(self.number_fold_elements, sampling_ratio)
         self.__create_Xs_ys_Xt_yt()
 
     def get_Xs(self, number_minibatch):
