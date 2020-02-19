@@ -128,10 +128,10 @@ class DataManipulator:
 
         for x, data in zip(chunkify(self.X), chunkify(self.data)):
             x_mean = np.mean(x, axis=0)
-            norm_1 = np.linalg.norm(x - x_mean)
+            norm_1 = np.linalg.norm(x - x_mean, axis=0)
             norm_2 = np.linalg.norm(x - x_mean, axis=1)
             numerator = norm_2
-            denominator = 2 * (norm_1.std() ** 2)
+            denominator = 2. * (norm_1.std() ** 2)
             probability = np.exp(-numerator / denominator)
             idx = np.argsort(probability)
 

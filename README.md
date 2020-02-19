@@ -35,9 +35,7 @@ series = {CIKM ’19}
 
 If you want to see the original code used for this paper, access [ATL_Matlab](https://github.com/Ivsucram/ATL_Matlab)
 
-`ATL_Python` is a reconstruction of `ATL_Matlab` made by the same author, but using Python 3.6 and PyTorch (with autograd enabled and GPU support). The code is still not one-to-one and some differences in results can be found (specially on the data split methods in `DataManipulator`, however the network structure is correct and can be used by whoever is interested on this work in order to understand the structure or to build comparative results with your own research work.
-
-Having said that, expect `ATL_Python` to be updated in the following weeks, including functions refactoring and functions documentation.
+`ATL_Python` is a reconstruction of `ATL_Matlab` made by the same author, but using Python 3.6 and PyTorch (with autograd enabled and GPU support).
 
 # ATL_Python
 
@@ -77,6 +75,7 @@ ATL statues are printed at the end of every minibatch, where you will be able to
 - Classification Rate for the Target (maximum, mean, minimum and current)
 - Classification Loss for the Source (maximum, mean, minimum and current)
 - Classification Loss for the Target (maximum, mean, minimum and current)
+- Reconstruction Loss for the Source (maximum, mean, minimum and current)
 - Reconstruction Loss for the Target (maximum, mean, minimum and current)
 - Kullback-Leibler Loss (maximum, mean, minimum and current)
 - Number of nodes (maximum, mean, minimum and current)
@@ -89,6 +88,10 @@ At the end of the process, ATL will plot 6 graphs:
 - The processing time per mini-batch and the total processing time as well, both for training and testing
 - The evolution of nodes over time
 - The target and source classification rate evolution, as well as the final mean accuracy of the network 
+- The number of GMMs on Source AGMM and Target AGMM
+- Losess for the source and target classification as well as source and target reconstruction
+- Bias and Variance of the discriminative phase
+- Bias and Variance of the generative phase
 ```
 
 Thank you.

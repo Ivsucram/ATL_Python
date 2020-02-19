@@ -382,6 +382,12 @@ def ATL(epochs: int = 1, n_batch: int = 1000, device='cpu'):
                       np.mean(metrics['classification_target_loss']),
                       np.min(metrics['classification_target_loss']),
                       metrics['classification_target_loss'][-1]))
+            print(('%s %s %s %s Reconstruction Source Loss:' + Fore.GREEN + ' %f' + Fore.YELLOW + ' %f' + Fore.RED + ' %f' + Fore.BLUE + ' %f' + Style.RESET_ALL) % (
+                      string_max, string_mean, string_min, string_now,
+                      np.max(metrics['reconstruction_source_loss']),
+                      np.mean(metrics['reconstruction_source_loss']),
+                      np.min(metrics['reconstruction_source_loss']),
+                      metrics['reconstruction_source_loss'][-1]))
             print(('%s %s %s %s Reconstruction Target Loss:' + Fore.GREEN + ' %f' + Fore.YELLOW + ' %f' + Fore.RED + ' %f' + Fore.BLUE + ' %f' + Style.RESET_ALL) % (
                       string_max, string_mean, string_min, string_now,
                       np.max(metrics['reconstruction_target_loss']),
@@ -452,6 +458,7 @@ def ATL(epochs: int = 1, n_batch: int = 1000, device='cpu'):
 
             test(nn, Xs, ys, is_source=True, is_discriminative=True, metrics=metrics)
             test(ae, Xt, is_source=False, is_discriminative=False, metrics=metrics)
+            test(ae, Xs, is_source=True, is_discriminative=False, metrics=metrics)
 
         metrics['train_time'].append(time.time())
         for epoch in range(epochs):
@@ -492,6 +499,10 @@ def ATL(epochs: int = 1, n_batch: int = 1000, device='cpu'):
     plot_time(metrics['train_time'], metrics['test_time'])
     plot_node_evolution(metrics['node_evolution'])
     plot_classification_rates(metrics['classification_rate_source'], metrics['classification_rate_target'])
+    plot_agmm(metrics['agmm_source_size_by_batch'], metrics['agmm_source_size_by_batch'])
+    plot_losses(metrics['classification_source_loss'], metrics['classification_target_loss'], metrics['reconstruction_source_loss'], metrics['reconstruction_target_loss'])
+    plot_generative_network_significance(nn.BIAS, nn.VAR)
+    plot_discriminative_network_significance(ae.BIAS, ae.VAR)
 
     return result
 
